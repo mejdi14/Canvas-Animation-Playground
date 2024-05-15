@@ -21,6 +21,7 @@ import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.drawscope.Stroke
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.canvasanimationplayground.ui.theme.CanvasAnimationPlaygroundTheme
@@ -33,15 +34,21 @@ class MainActivity : ComponentActivity() {
             CanvasAnimationPlaygroundTheme {
                 Surface(modifier = Modifier.fillMaxSize()) {
                     // Adjust padding as needed to center the rectangle
+                    for(i in 1..3)
                     Box(contentAlignment = Alignment.Center, modifier = Modifier.padding(16.dp).size(100.dp)) {
                         Canvas(
                             modifier = Modifier
+                                .graphicsLayer {
+                                    rotationZ = 30f
+                                    translationX = -(i * 40f)
+                                    translationY = -(i * 40f)
+                                }
                         ) {
-                            val strokeWidth = 5.dp.toPx()
+                            val strokeWidth = 2.dp.toPx()
                             val cornerRadius = CornerRadius(10.dp.toPx(), 10.dp.toPx())
                             drawRoundRect(
                                 color = Color.Black,
-                                size = Size(100f, 100f),
+                                size = Size(100f + (i * 80f), 100f + (i * 80f)),
                                 cornerRadius = cornerRadius,
                                 style = Stroke(width = strokeWidth)
                             )
